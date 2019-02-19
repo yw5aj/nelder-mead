@@ -50,7 +50,7 @@ def nelder_mead(f, x_start,
         iters += 1
 
         # break after no_improv_break iterations with no improvement
-        print '...best so far:', best
+        print('...best so far:', best)
 
         if best < prev_best - no_improve_thr:
             no_improv = 0
@@ -77,7 +77,7 @@ def nelder_mead(f, x_start,
 
         # expansion
         if rscore < res[0][1]:
-            xe = x0 + gamma*(x0 - res[-1][0])
+            xe = x0 + gamma*(xr - x0)
             escore = f(xe)
             if escore < rscore:
                 del res[-1]
@@ -89,7 +89,7 @@ def nelder_mead(f, x_start,
                 continue
 
         # contraction
-        xc = x0 + rho*(x0 - res[-1][0])
+        xc = x0 + rho*(res[-1][0] - x0)
         cscore = f(xc)
         if cscore < res[-1][1]:
             del res[-1]
@@ -114,4 +114,4 @@ if __name__ == "__main__":
     def f(x):
         return math.sin(x[0]) * math.cos(x[1]) * (1. / (abs(x[2]) + 1))
 
-    print nelder_mead(f, np.array([0., 0., 0.]))
+    print(nelder_mead(f, np.array([0., 0., 0.])))
